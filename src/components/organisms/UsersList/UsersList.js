@@ -1,16 +1,17 @@
 import React from 'react';
+import { Wrapper, List } from './UsersList.styles';
 import { users } from 'data/users';
-import UsersListItem from 'components/UsersListItem/UsersListItem';
+import UsersListItem from 'components/molecules/UsersListItem/UsersListItem';
 
 const UsersList = () => {
   return (
-    <div>
-      <ul>
+    <Wrapper>
+      <List>
         {users.map((userData) => (
           <UsersListItem userData={userData} />
         ))}
-      </ul>
-    </div>
+      </List>
+    </Wrapper>
   );
 };
 
