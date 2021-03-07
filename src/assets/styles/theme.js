@@ -9,6 +9,7 @@ export const theme = {
     success: '#8FCB81',
     error: '#CB8581',
     warning: '#E1D888',
+    buttonGrey: '#ECEFF7',
   },
   fontSize: {
     l: '17px',
@@ -19,5 +20,8 @@ export const theme = {
   fontWeight: {
     regular: 400,
     bold: 700,
+  },
+  fontFamily: {
+    heading: 'Roboto, sans-serif',
   },
 };
