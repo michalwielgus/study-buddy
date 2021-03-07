@@ -7,7 +7,7 @@ import {
   Average,
 } from './UsersListItem.styles';
 import PropTypes from 'prop-types';
-import Button from 'components/atoms/Button/Button';
+import DeleteButton from 'components/atoms/DeleteButton/DeleteButton';
 
 const UsersListItem = ({
   userData: { name, average, attendance = '0%' },
@@ -20,7 +20,7 @@ const UsersListItem = ({
         <Name>{name}</Name>
         <Attendance>attendance: {attendance}</Attendance>
       </Person>
-      <Button onClick={() => deleteUser(name)} />
+      <DeleteButton onClick={() => deleteUser(name)} />
     </Wrapper>
   );
 };
