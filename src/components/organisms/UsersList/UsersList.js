@@ -1,6 +1,5 @@
 import React from 'react';
 import UsersListItem from 'components/molecules/UsersListItem/UsersListItem';
-import { ViewWrapper } from 'components/molecules/ViewWrapper/ViewWrapper';
 import { List } from './UsersList.styles';
 
 const UsersList = ({ users, deleteUser }) => {
