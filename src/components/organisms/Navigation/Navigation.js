@@ -10,12 +10,10 @@ const Navigation = ({ theme }) => {
         Buddy
       </Logo>
       <Menu>
-        <StyledLink to="/" activeClassName="active" exact={true}>
+        <StyledLink to="/" exact={true}>
           Dashboard
         </StyledLink>
-        <StyledLink to="/add-user" activeClassName="active">
-          Add User
-        </StyledLink>
+        <StyledLink to="/add-user">Add User</StyledLink>
       </Menu>
     </Wrapper>
   );
