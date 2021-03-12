@@ -24,7 +24,7 @@ export const Menu = styled.div`
   flex-direction: column;
 `;
 
-export const StyledLink = styled(NavLink)`
+export const StyledLink = styled(NavLink).attrs({ activeClassName: 'active' })`
   color: ${({ theme }) => theme.colors.darkGrey};
   font-weight: ${({ theme }) => theme.fontWeight.bold};
   font-size: ${({ theme }) => theme.fontSize.m};
@@ -32,17 +32,19 @@ export const StyledLink = styled(NavLink)`
   text-decoration: none;
   position: relative;
 
-  &:hover {
-    opacity: 0.7;
-  }
-
-  &.active:after {
+  &:after {
     content: '';
     position: absolute;
-    width: 15px;
+    width: 19px;
     height: 3px;
     background-color: ${({ theme }) => theme.colors.lineGrey};
     right: -24px;
     top: 5px;
+    opacity: 0;
+    transition: opacity 0.4s ease;
+  }
+
+  &.active:after {
+    opacity: 1;
   }
 `;
