@@ -1,4 +1,4 @@
-import React, { useContext, useReducer } from 'react';
+import React, { useContext, useState, useMemo, useReducer } from 'react';
 import { ViewHead, Title } from 'components/molecules/ViewHead/ViewHead';
 import { ViewWrapper } from 'components/molecules/ViewWrapper/ViewWrapper';
 import FormField from 'components/molecules/FormField/FormField';
@@ -40,9 +40,25 @@ const reducer = (state, action) => {
   }
 };
 
+const veryLongFunction = (number) => {
+  for (let i = 0; i < 300000000; i++) {}
+  return `Losowy numer wolno: ${number}`;
+};
+
+const veryFastFunction = (number) => {
+  return `Losowy numer szybko: ${number}`;
+};
+
 const AddUser = () => {
   const [formState, dispatch] = useReducer(reducer, initialFormState);
   const { handleAddUser } = useContext(UsersContext);
+  const [randomNumber, setRandomNumber] = useState(0);
+  const [randomNumber2, setRandomNumber2] = useState(0);
+
+  const getRandomValueSlowly = useMemo(() => veryLongFunction(randomNumber), [
+    randomNumber,
+  ]);
+  const getRandomValueFastly = veryFastFunction(randomNumber2);
 
   const handleInputChange = (e) => {
     dispatch({
@@ -82,6 +98,8 @@ const AddUser = () => {
     <>
       <ViewHead>
         <Title>Add new student</Title>
+        <Title>{getRandomValueSlowly}</Title>
+        <Title>{getRandomValueFastly}</Title>
       </ViewHead>
       <ViewWrapper as="form" onSubmit={handleSubmitUser}>
         <FormField
@@ -115,6 +133,12 @@ const AddUser = () => {
         />
         {formState.errors.consent ? <p>{formState.errors.consent}</p> : ''}
         <Button type="submit">Add</Button>
+        <Button type="button" onClick={() => setRandomNumber(Math.random())}>
+          Random number slowly
+        </Button>
+        <Button type="button" onClick={() => setRandomNumber2(Math.random())}>
+          Random number fastly
+        </Button>
       </ViewWrapper>
     </>
   );
