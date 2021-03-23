@@ -13,6 +13,7 @@ const FormField = ({ value, onChange, label, name, id, type, ...props }) => {
         id={id}
         type={type}
         value={value}
+        checked={value}
         onChange={onChange}
         data-testid={label}
       ></Input>
