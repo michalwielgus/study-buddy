@@ -1,145 +1,24 @@
-import React, { useContext, useState, useMemo, useReducer } from 'react';
-import { ViewHead, Title } from 'components/molecules/ViewHead/ViewHead';
-import { ViewWrapper } from 'components/molecules/ViewWrapper/ViewWrapper';
-import FormField from 'components/molecules/FormField/FormField';
-import Button from 'components/atoms/Button/Button';
-import { UsersContext } from 'providers/UsersProvider';
+import React, { useState, useCallback, useEffect } from 'react';
 
-const initialFormState = {
-  name: '',
-  attendance: '',
-  average: '',
-  consent: false,
-  errors: {},
-};
+const ChildComponent = ({ func }) => {
+  useEffect(() => {
+    console.log(func());
+  }, [func]);
 
-const actionTypes = {
-  CHANGE_VALUE: 'CHANGE_VALUE',
-  CONSENT_TOGGLE: 'CONSENT_TOGGLE',
-  ERROR: 'ERROR',
-  RESET: 'RESET',
-};
-
-const reducer = (state, action) => {
-  switch (action.type) {
-    case actionTypes.CHANGE_VALUE:
-      const { field, value } = action.payload;
-      return { ...state, [field]: value };
-    case actionTypes.CONSENT_TOGGLE:
-      return { ...state, consent: !state.consent };
-    case actionTypes.ERROR:
-      const { errorField, errorMessage } = action.payload;
-      return {
-        ...state,
-        errors: { ...state.errors, [errorField]: errorMessage },
-      };
-    case actionTypes.RESET:
-      return initialFormState;
-    default:
-      throw new Error();
-  }
-};
-
-const veryLongFunction = (number) => {
-  for (let i = 0; i < 300000000; i++) {}
-  return `Losowy numer wolno: ${number}`;
-};
-
-const veryFastFunction = (number) => {
-  return `Losowy numer szybko: ${number}`;
+  return <div>Test</div>;
 };
 
 const AddUser = () => {
-  const [formState, dispatch] = useReducer(reducer, initialFormState);
-  const { handleAddUser } = useContext(UsersContext);
-  const [randomNumber, setRandomNumber] = useState(0);
-  const [randomNumber2, setRandomNumber2] = useState(0);
+  const [value, setValue] = useState(0);
 
-  const getRandomValueSlowly = useMemo(() => veryLongFunction(randomNumber), [
-    randomNumber,
-  ]);
-  const getRandomValueFastly = veryFastFunction(randomNumber2);
-
-  const handleInputChange = (e) => {
-    dispatch({
-      type: actionTypes.CHANGE_VALUE,
-      payload: {
-        field: e.target.name,
-        value: e.target.value,
-      },
-    });
-  };
-
-  const handleSubmitUser = (e) => {
-    e.preventDefault();
-    if (formState.consent) {
-      handleAddUser(formState);
-      dispatch({ type: actionTypes.RESET });
-      dispatch({
-        type: actionTypes.ERROR,
-        payload: {
-          errorField: 'consent',
-          errorMessage: false,
-        },
-      });
-    } else {
-      dispatch({
-        type: actionTypes.ERROR,
-        payload: {
-          errorField: 'consent',
-          errorMessage: 'You must accept consent',
-        },
-      });
-    }
-    console.log(formState.errors);
-  };
+  const testFunc = useCallback(() => 'Stefan', []);
 
   return (
     <>
-      <ViewHead>
-        <Title>Add new student</Title>
-        <Title>{getRandomValueSlowly}</Title>
-        <Title>{getRandomValueFastly}</Title>
-      </ViewHead>
-      <ViewWrapper as="form" onSubmit={handleSubmitUser}>
-        <FormField
-          label="Name"
-          id="name"
-          name="name"
-          value={formState.name}
-          onChange={handleInputChange}
-        />
-        <FormField
-          label="Attendance"
-          id="attendance"
-          name="attendance"
-          value={formState.attendance}
-          onChange={handleInputChange}
-        />
-        <FormField
-          label="Average"
-          id="average"
-          name="average"
-          value={formState.average}
-          onChange={handleInputChange}
-        />
-        <FormField
-          label="Consent"
-          id="consent"
-          name="consent"
-          type="checkbox"
-          value={formState.consent}
-          onChange={() => dispatch({ type: 'CONSENT_TOGGLE' })}
-        />
-        {formState.errors.consent ? <p>{formState.errors.consent}</p> : ''}
-        <Button type="submit">Add</Button>
-        <Button type="button" onClick={() => setRandomNumber(Math.random())}>
-          Random number slowly
-        </Button>
-        <Button type="button" onClick={() => setRandomNumber2(Math.random())}>
-          Random number fastly
-        </Button>
-      </ViewWrapper>
+      <h1>{value}</h1>
+      <button onClick={() => setValue(value + 1)}>Add</button>
+      <button onClick={() => setValue(value - 1)}>Substract</button>
+      <ChildComponent func={testFunc} />
     </>
   );
 };
