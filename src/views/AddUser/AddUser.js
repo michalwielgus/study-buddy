@@ -1,10 +1,10 @@
-import React, { useContext, useReducer, useRef, useEffect } from 'react';
+import React, { useContext, useRef, useEffect } from 'react';
 import { ViewHead, Title } from 'components/molecules/ViewHead/ViewHead';
 import { ViewWrapper } from 'components/molecules/ViewWrapper/ViewWrapper';
 import FormField from 'components/molecules/FormField/FormField';
 import Button from 'components/atoms/Button/Button';
 import { UsersContext } from 'providers/UsersProvider';
-import useWindowSize from 'hooks/useWindowSize';
+import { useForm } from 'hooks/useForm';
 
 const initialFormState = {
   name: '',
@@ -14,86 +14,43 @@ const initialFormState = {
   errors: {},
 };
 
-const actionTypes = {
-  CHANGE_VALUE: 'CHANGE_VALUE',
-  CONSENT_TOGGLE: 'CONSENT_TOGGLE',
-  ERROR: 'ERROR',
-  RESET: 'RESET',
-};
-
-const reducer = (state, action) => {
-  switch (action.type) {
-    case actionTypes.CHANGE_VALUE:
-      const { field, value } = action.payload;
-      return { ...state, [field]: value };
-    case actionTypes.CONSENT_TOGGLE:
-      return { ...state, consent: !state.consent };
-    case actionTypes.ERROR:
-      const { errorField, errorMessage } = action.payload;
-      return {
-        ...state,
-        errors: { ...state.errors, [errorField]: errorMessage },
-      };
-    case actionTypes.RESET:
-      return initialFormState;
-    default:
-      throw new Error();
-  }
-};
-
 const AddUser = () => {
-  const [formState, dispatch] = useReducer(reducer, initialFormState);
-  const { width, height } = useWindowSize();
   const { handleAddUser } = useContext(UsersContext);
+  const [
+    formState,
+    handleInputChange,
+    handleFormReset,
+    handleErrorsChange,
+    handleConsentToggle,
+  ] = useForm(initialFormState);
   const ref = useRef(null);
 
   useEffect(() => {
     if (ref.current) {
       ref.current.focus();
-      console.log(ref);
     }
   }, []);
-
-  const handleInputChange = (e) => {
-    dispatch({
-      type: actionTypes.CHANGE_VALUE,
-      payload: {
-        field: e.target.name,
-        value: e.target.value,
-      },
-    });
-  };
 
   const handleSubmitUser = (e) => {
     e.preventDefault();
     if (formState.consent) {
       handleAddUser(formState);
-      dispatch({ type: actionTypes.RESET });
-      dispatch({
-        type: actionTypes.ERROR,
-        payload: {
-          errorField: 'consent',
-          errorMessage: false,
-        },
+      handleFormReset();
+      handleErrorsChange({
+        errorField: 'consent',
+        errorMessage: false,
       });
     } else {
-      dispatch({
-        type: actionTypes.ERROR,
-        payload: {
-          errorField: 'consent',
-          errorMessage: 'You must accept consent',
-        },
+      handleErrorsChange({
+        errorField: 'consent',
+        errorMessage: 'You must accept consent',
       });
     }
-    console.log(formState.errors);
   };
-
   return (
     <>
       <ViewHead>
         <Title>Add new student</Title>
-        <Title>{width}</Title>
-        <Title>{height}</Title>
       </ViewHead>
       <ViewWrapper as="form" onSubmit={handleSubmitUser}>
         <FormField
@@ -124,7 +81,7 @@ const AddUser = () => {
           name="consent"
           type="checkbox"
           value={formState.consent}
-          onChange={() => dispatch({ type: 'CONSENT_TOGGLE' })}
+          onChange={() => handleConsentToggle()}
         />
         {formState.errors.consent ? <p>{formState.errors.consent}</p> : ''}
         <Button type="submit">Add</Button>
