@@ -4,6 +4,7 @@ import { ViewWrapper } from 'components/molecules/ViewWrapper/ViewWrapper';
 import FormField from 'components/molecules/FormField/FormField';
 import Button from 'components/atoms/Button/Button';
 import { UsersContext } from 'providers/UsersProvider';
+import useWindowSize from 'hooks/useWindowSize';
 
 const initialFormState = {
   name: '',
@@ -42,6 +43,7 @@ const reducer = (state, action) => {
 
 const AddUser = () => {
   const [formState, dispatch] = useReducer(reducer, initialFormState);
+  const { width, height } = useWindowSize();
   const { handleAddUser } = useContext(UsersContext);
   const ref = useRef(null);
 
@@ -90,6 +92,8 @@ const AddUser = () => {
     <>
       <ViewHead>
         <Title>Add new student</Title>
+        <Title>{width}</Title>
+        <Title>{height}</Title>
       </ViewHead>
       <ViewWrapper as="form" onSubmit={handleSubmitUser}>
         <FormField
