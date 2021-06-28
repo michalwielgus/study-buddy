@@ -1,6 +1,6 @@
 export const users = [
   {
-    name: 'Adam Romański',
+    name: 'Michał Mięculewicz-Wielgus',
     attendance: '39%',
     average: '2.3',
   },
@@ -25,7 +25,7 @@ export const users = [
     average: '2.4',
   },
   {
-    name: 'Paweł Roman',
+    name: 'Paweł Stefan',
     average: '2.4',
   },
 ];

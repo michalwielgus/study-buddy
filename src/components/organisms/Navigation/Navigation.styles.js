@@ -5,6 +5,8 @@ export const Wrapper = styled.div`
   padding: 19px 0;
   border-right: solid 1px ${({ theme }) => theme.colors.lineGrey};
   background-color: ${({ theme }) => theme.colors.lightGrey};
+  grid-column: 1 / 2;
+  grid-row: 1 / 3;
 `;
 
 export const Logo = styled.div`
