@@ -7,7 +7,6 @@ const Button = styled.button`
   font-size: ${({ theme }) => theme.fontSize.s};
   padding: 9px 64px;
   font-weight: ${({ theme }) => theme.fontWeight.bold};
-  margin: auto;
   display: block;
   margin-top: 25px;
   outline: none;

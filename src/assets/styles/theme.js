@@ -10,6 +10,7 @@ export const theme = {
     error: '#CB8581',
     warning: '#E1D888',
     buttonGrey: '#ECEFF7',
+    placeholderGrey: '#C2CBDF',
   },
   fontSize: {
     l: '17px',
