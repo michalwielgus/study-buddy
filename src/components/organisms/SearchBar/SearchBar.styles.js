@@ -7,6 +7,7 @@ export const SearchBarWrapper = styled.div`
   display: flex;
   align-items: center;
   justify-content: flex-start;
+  position: relative;
 `;
 
 export const StatusInfo = styled.div`
@@ -37,5 +38,37 @@ export const SearchBarInput = styled.input`
   &:focus {
     outline: none;
     box-shadow: -2px 4px 10px rgba(115, 124, 142, 0.3);
+  }
+`;
+
+export const SearchResults = styled.ul`
+  z-index: 1000;
+  max-height: 500px;
+  overflow-y: auto;
+  padding: 10px;
+  border-radius: 15px;
+  list-style: none;
+  width: 100%;
+  position: absolute;
+  left: 0;
+  top: 50px;
+  display: flex;
+  flex-direction: column;
+  background-color: ${({ theme }) => theme.colors.white};
+  box-shadow: -2px 4px 10px rgba(115, 124, 142, 0.09);
+  li {
+    font-size: ${({ theme }) => theme.fontSize.m};
+    font-weight: bold;
+    color: ${({ theme }) => theme.colors.darkGrey};
+    background-color: ${({ theme }) => theme.colors.white};
+    width: 100%;
+    padding: 10px 5px;
+  }
+  li:hover,
+  li:focus {
+    background-color: ${({ theme }) => theme.colors.lightGray};
+  }
+  li:not(:last-child) {
+    border-bottom: 1px solid ${({ theme }) => theme.colors.darkGray};
   }
 `;
