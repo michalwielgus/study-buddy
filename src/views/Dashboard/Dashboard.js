@@ -1,19 +1,24 @@
 import React from 'react';
+import { useParams } from 'react-router-dom';
 import { ViewHead, Title } from 'components/molecules/ViewHead/ViewHead';
 import { ViewWrapper } from 'components/molecules/ViewWrapper/ViewWrapper';
-import UsersList from 'components/organisms/UsersList/UsersList';
+import StudentList from 'components/organisms/StudentList/StudentList';
+import GroupSelector from 'components/organisms/GroupSelector/GroupSelector';
 
-const AddUser = () => {
+const Dashboard = () => {
+  const { id } = useParams();
+
   return (
     <>
       <ViewHead>
-        <Title>Students List</Title>
+        <Title>{id ? `Group ${id}` : 'All students'}</Title>
+        <GroupSelector />
       </ViewHead>
       <ViewWrapper>
-        <UsersList />
+        <StudentList />
       </ViewWrapper>
     </>
   );
 };
 
-export default AddUser;
+export default Dashboard;
