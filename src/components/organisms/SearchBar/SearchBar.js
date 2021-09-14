@@ -31,6 +31,7 @@ const SearchBar = () => {
   } = useCombobox({
     items: matchingStudents,
     onInputValueChange: getMatchingStudents,
+    itemToString: (item) => (item ? item.name : ''),
   });
 
   return (
