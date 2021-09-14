@@ -54,21 +54,34 @@ export const SearchResults = styled.ul`
   top: 50px;
   display: flex;
   flex-direction: column;
+  ${({ isOpen, theme }) =>
+    isOpen
+      ? `
+        background-color: ${theme.colors.white};
+        box-shadow: -2px 4px 10px rgba(115, 124, 142, 0.09);
+  `
+      : ''};
+`;
+
+export const SearchResultsItem = styled.li`
+  font-size: ${({ theme }) => theme.fontSize.m};
+  font-weight: bold;
+  color: ${({ theme }) => theme.colors.darkGrey};
   background-color: ${({ theme }) => theme.colors.white};
-  box-shadow: -2px 4px 10px rgba(115, 124, 142, 0.09);
-  li {
-    font-size: ${({ theme }) => theme.fontSize.m};
-    font-weight: bold;
-    color: ${({ theme }) => theme.colors.darkGrey};
-    background-color: ${({ theme }) => theme.colors.white};
-    width: 100%;
-    padding: 10px 5px;
+  width: 100%;
+  padding: 10px 5px;
+
+  ${({ isHighlighted, theme }) =>
+    isHighlighted
+      ? `background-color: ${theme.colors.lightGrey};`
+      : `${theme.colors.white}`}
+
+  &:hover,
+  &:focus {
+    background-color: ${({ theme }) => theme.colors.lightGrey};
   }
-  li:hover,
-  li:focus {
-    background-color: ${({ theme }) => theme.colors.lightGray};
-  }
-  li:not(:last-child) {
-    border-bottom: 1px solid ${({ theme }) => theme.colors.darkGray};
+
+  &:not(:last-child) {
+    border-bottom: 1px solid ${({ theme }) => theme.colors.darkGrey};
   }
 `;
