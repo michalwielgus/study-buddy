@@ -1,11 +1,19 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useStudents } from 'hooks/useStudents';
 import Button from 'components/atoms/Button/Button';
 import { StyledGroupList, StyledLink } from './GroupSelector.styles';
 
 const GroupSelector = () => {
-  const { groups } = useStudents();
+  const [groups, setGroups] = useState([]);
   const [isVisible, setIsVisible] = useState(false);
+  const { getGroups } = useStudents();
+
+  useEffect(() => {
+    (async () => {
+      const groups = await getGroups();
+      setGroups(groups);
+    })();
+  }, []);
   return (
     <>
       <Button isAbsolute onClick={() => setIsVisible(!isVisible)}>
