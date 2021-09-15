@@ -5,7 +5,7 @@ import Button from 'components/atoms/Button/Button';
 import { ItemMeta } from 'components/atoms/ItemMeta/ItemMeta';
 
 const NewsItem = ({
-  newsData: { id, title, category, content, featuredImage },
+  newsData: { title, category, content, featuredImage },
 }) => {
   return (
     <NewsItemWrapper>

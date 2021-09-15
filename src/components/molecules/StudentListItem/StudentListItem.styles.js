@@ -32,6 +32,7 @@ export const Average = styled.div`
   font-weight: ${({ theme }) => theme.fontWeight.bold};
   color: ${({ theme }) => theme.colors.white};
   background-color: ${({ theme, average }) => {
+    if (!average) return theme.colors.grey;
     if (average > 4) return theme.colors.success;
     if (average < 3) return theme.colors.error;
     if (average <= 4 && average >= 3) return theme.colors.warning;
