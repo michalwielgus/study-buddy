@@ -3,7 +3,7 @@ export const students = [
     id: '1',
     name: 'Michał Mięculewicz-Wielgus',
     attendance: '39%',
-    average: '2.3',
+    average: '4.3',
     group: 'A',
   },
   {

@@ -4,25 +4,27 @@ import { useParams } from 'react-router-dom';
 import StudentListItem from 'components/molecules/StudentListItem/StudentListItem';
 import { List } from './StudentList.styles';
 
-const StudentList = () => {
-  const { id } = useParams();
+const StudentList = ({ handleOpenStudentDetails }) => {
+  const { groupId } = useParams();
   const [students, setStudents] = useState([]);
-  const { getStudents } = useStudents();
+  const { getStudentsByGroup } = useStudents();
 
   useEffect(() => {
     (async () => {
-      const students = await getStudents(id);
+      const students = await getStudentsByGroup(groupId);
       setStudents(students);
     })();
-  }, [id]);
+  }, [groupId, getStudentsByGroup]);
   return (
-    <>
-      <List>
-        {students.map((studentData) => (
-          <StudentListItem key={studentData.name} userData={studentData} />
-        ))}
-      </List>
-    </>
+    <List>
+      {students.map((studentData) => (
+        <StudentListItem
+          key={studentData.id}
+          userData={studentData}
+          onClick={() => handleOpenStudentDetails(studentData.id)}
+        />
+      ))}
+    </List>
   );
 };
 

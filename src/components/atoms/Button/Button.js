@@ -12,6 +12,8 @@ const Button = styled.button`
   margin-top: 25px;
   outline: none;
   cursor: pointer;
+  width: auto;
+  align-self: center;
 
   ${({ isAbsolute }) =>
     isAbsolute && 'position: absolute; top: -25px; right: 0;'}
