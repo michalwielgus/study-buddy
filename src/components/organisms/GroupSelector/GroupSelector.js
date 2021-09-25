@@ -13,7 +13,7 @@ const GroupSelector = () => {
       const groups = await getGroups();
       setGroups(groups);
     })();
-  }, []);
+  }, [getGroups]);
   return (
     <>
       <Button isAbsolute onClick={() => setIsVisible(!isVisible)}>

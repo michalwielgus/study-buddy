@@ -1,7 +1,7 @@
 import Label from './Label';
 
 const Story = {
-  title: 'Components/Organisms/Label',
+  title: 'Components/Atoms/Label',
   component: Label,
 };
 

@@ -13,6 +13,8 @@ export const theme = {
     placeholderGrey: '#C2CBDF',
   },
   fontSize: {
+    xxl: '30px',
+    xl: '24px',
     l: '17px',
     m: '12px',
     s: '11px',

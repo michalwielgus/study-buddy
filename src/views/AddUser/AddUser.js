@@ -1,5 +1,6 @@
 import React, { useContext, useRef, useEffect } from 'react';
-import { ViewHead, Title } from 'components/molecules/ViewHead/ViewHead';
+import { ViewHead } from 'components/molecules/ViewHead/ViewHead';
+import { Title } from 'components/atoms/Title/Title';
 import { ViewWrapper } from 'components/molecules/ViewWrapper/ViewWrapper';
 import FormField from 'components/molecules/FormField/FormField';
 import Button from 'components/atoms/Button/Button';
