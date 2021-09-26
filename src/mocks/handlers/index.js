@@ -1,30 +1,36 @@
 import { rest } from 'msw';
-import { students } from 'mocks/data/students';
-import { groups } from 'mocks/data/groups';
+import { db } from 'mocks/db';
 
 const handlers = [
   rest.get('/groups', (req, res, ctx) => {
+    const groups = db.group.getAll();
+
     return res(ctx.status(200), ctx.json({ groups }));
   }),
-
   rest.get('/groups/:groupId', (req, res, ctx) => {
     if (req.params.groupId !== 'all') {
-      const matchingStudents = students.filter(
-        (student) => student.group === req.params.groupId
-      );
+      const matchingStudents = db.student.findMany({
+        where: {
+          group: {
+            equals: req.params.groupId,
+          },
+        },
+      });
 
       return res(ctx.status(200), ctx.json({ students: matchingStudents }));
     }
-    return res(ctx.status(200), ctx.json({ students }));
+    return res(ctx.status(200), ctx.json({ students: db.student.getAll() }));
   }),
 
   rest.post('/students/search', (req, res, ctx) => {
     const matchingStudents = req.body.searchPhrase
-      ? students.filter((student) =>
-          student.name
-            .toLowerCase()
-            .includes(req.body.searchPhrase.toLowerCase())
-        )
+      ? db.student.findMany({
+          where: {
+            name: {
+              contains: req.body.searchPhrase,
+            },
+          },
+        })
       : [];
     return res(
       ctx.status(200),
@@ -35,9 +41,13 @@ const handlers = [
   }),
 
   rest.get('/students/:studentId', (req, res, ctx) => {
-    const matchingStudent = students.filter(
-      (student) => student.id === req.params.studentId
-    );
+    const matchingStudent = db.student.findFirst({
+      where: {
+        id: {
+          equals: req.params.studentId,
+        },
+      },
+    });
 
     if (!matchingStudent) {
       return res(ctx.status(404), ctx.json({ error: 'No student found' }));

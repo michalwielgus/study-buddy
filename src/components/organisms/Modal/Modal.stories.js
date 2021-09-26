@@ -22,6 +22,7 @@ Default.args = {
     attendance: '39%',
     average: '4.3',
     group: 'A',
+    course: 'Computer Science',
     subjects: [
       {
         name: 'Math',

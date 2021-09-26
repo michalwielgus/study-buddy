@@ -21,19 +21,20 @@ const StudentDetails = ({ student }) => {
         </Average>
         <Title as="h2">{student.name}</Title>
         <div>
-          <ItemMeta style={{ 'font-weight': 'bold' }}>
+          <ItemMeta style={{ fontWeight: 'bold' }}>
             Group {student.group}
           </ItemMeta>
-          <ItemMeta>attendance: {student.attendance}</ItemMeta>
+          <ItemMeta>attendance: {student.attendance}%</ItemMeta>
         </div>
       </Summary>
       <Details>
         <SectionTitle>Course:</SectionTitle>
-        <CourseName>Economy and finances</CourseName>
+        <CourseName>{student.course}</CourseName>
+
         <SectionTitle>Average grades:</SectionTitle>
         <GradeList>
           {student.subjects.map((subject) => (
-            <GradeItem>
+            <GradeItem key={subject.name}>
               <Subject>{subject.name}</Subject>
               <Average average={subject.grade}>{subject.grade}</Average>
             </GradeItem>

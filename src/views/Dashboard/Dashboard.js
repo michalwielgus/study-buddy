@@ -17,7 +17,7 @@ const Dashboard = () => {
   const { getStudentById } = useStudents();
 
   const handleOpenStudentDetails = async (studentId) => {
-    const [student] = await getStudentById(studentId);
+    const student = await getStudentById(studentId);
     setCurrentStudent(student);
     handleOpenModal();
   };
