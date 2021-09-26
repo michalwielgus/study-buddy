@@ -45,4 +45,10 @@ export const db = factory({
     subject: () => faker.fake('{{company.bsAdjective}} {{company.bsNoun}}'),
     date: faker.date.soon,
   },
+  teacher: {
+    id: primaryKey(String),
+    name: () => '',
+    login: () => '',
+    password: () => '',
+  },
 });
