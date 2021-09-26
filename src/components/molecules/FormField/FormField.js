@@ -18,6 +18,7 @@ const FormField = forwardRef(
           onChange={onChange}
           data-testid={label}
           ref={ref}
+          {...props}
         ></Input>
       </Wrapper>
     );

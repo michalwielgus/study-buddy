@@ -17,6 +17,7 @@ const Button = styled.button`
 
   ${({ isAbsolute }) =>
     isAbsolute && 'position: absolute; top: -25px; right: 0;'}
+  ${({ isCentered }) => isCentered && 'margin-left:auto; margin-right: auto;'}
 `;
 
 export default Button;

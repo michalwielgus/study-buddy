@@ -6,8 +6,10 @@ const Input = styled.input`
   box-sizing: border-box;
   box-shadow: -2px 4px 10px rgba(115, 124, 142, 0.09);
   border-radius: 25px;
-  width: 100%;
-  height: 35px;
+  width: ${({ type }) =>
+    type === 'checkbox' || type === 'radio' ? 'auto' : '100%'};
+  height: ${({ type }) =>
+    type === 'checkbox' || type === 'radio' ? 'auto' : '35px'};
 
   &::placeholder {
     color: ${({ theme }) => theme.colors.placeholderGrey};
