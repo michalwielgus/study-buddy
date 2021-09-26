@@ -26,11 +26,11 @@ const GroupSelector = () => {
         <StyledLink to="/group">All students</StyledLink>
         {groups.map((group) => (
           <StyledLink
-            key={group}
-            to={`/group/${group}`}
+            key={group.id}
+            to={`/group/${group.id}`}
             onClick={() => setIsVisible(!isVisible)}
           >
-            Group {group}
+            Group {group.id}
           </StyledLink>
         ))}
       </StyledGroupList>

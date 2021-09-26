@@ -18,6 +18,7 @@ const SearchBar = () => {
 
   const getMatchingStudents = debounce(async ({ inputValue }) => {
     const { students } = await findStudents(inputValue);
+    console.log(students);
     setMatchingStudents(students);
   }, 500);
 

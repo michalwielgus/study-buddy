@@ -14,7 +14,7 @@ const StudentListItem = ({
       <Average average={average}>{average}</Average>
       <Person>
         <Name>{name}</Name>
-        <Attendance>attendance: {attendance}</Attendance>
+        <Attendance>attendance: {attendance}%</Attendance>
       </Person>
       <DeleteButton />
     </Wrapper>
