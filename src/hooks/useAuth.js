@@ -1,10 +1,12 @@
 import React, { useState, useEffect, useContext } from 'react';
 import axios from 'axios';
+import { useError } from 'hooks/useError';
 
 const AuthContext = React.createContext({});
 
 export const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
+  const { dispatchError } = useError();
 
   useEffect(() => {
     const token = localStorage.getItem('token');
@@ -18,11 +20,13 @@ export const AuthProvider = ({ children }) => {
           });
           setUser(response.data);
         } catch (err) {
-          console.log(err);
+          dispatchError(
+            'There is a problem, with connection to our service. Please report a problem.'
+          );
         }
       })();
     }
-  }, []);
+  }, [dispatchError]);
 
   const signIn = async ({ login, password }) => {
     try {
@@ -31,7 +35,7 @@ export const AuthProvider = ({ children }) => {
       setUser(response.data);
       localStorage.setItem('token', response.data.token);
     } catch (e) {
-      console.log(e);
+      dispatchError('Wrong login or password.');
     }
   };
   const signOut = () => {

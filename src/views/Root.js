@@ -10,6 +10,8 @@ import Button from 'components/atoms/Button/Button';
 import { useForm } from 'react-hook-form';
 import { ItemMeta } from 'components/atoms/ItemMeta/ItemMeta';
 import { useAuth } from 'hooks/useAuth';
+import { useError } from 'hooks/useError';
+import ErrorMessage from 'components/molecules/ErrorMessage/ErrorMessage';
 
 const AuthenticatedApp = () => (
   <MainTemplate>
@@ -46,16 +48,25 @@ const UnauthenticatedApp = () => {
         justifyContent: 'center',
         alignItems: 'center',
         height: '100vh',
+        backgroundColor: '#F7F8FA',
       }}
     >
-      <form onSubmit={handleSubmit(auth.signIn)}>
+      <form
+        onSubmit={handleSubmit(auth.signIn)}
+        style={{
+          boxShadow: '-2px 4px 10px rgba(115, 124, 142, 0.09)',
+          backgroundColor: '#ffffff',
+          borderRadius: '10px',
+          padding: '35px 60px 60px',
+        }}
+      >
         <FormField
           id="login"
           name="login"
           label="login"
           {...register('login', { required: true })}
         />
-        {errors.login && <ItemMeta isDanger>Login is required</ItemMeta>}
+        {errors.login && <ItemMeta isError>Login is required</ItemMeta>}
         <FormField
           id="password"
           name="password"
@@ -63,7 +74,7 @@ const UnauthenticatedApp = () => {
           type="password"
           {...register('password', { required: true })}
         />
-        {errors.password && <ItemMeta isDanger>Password is required</ItemMeta>}
+        {errors.password && <ItemMeta isError>Password is required</ItemMeta>}
         <Button type="submit" isBig isCentered>
           Sign in
         </Button>
@@ -74,7 +85,13 @@ const UnauthenticatedApp = () => {
 
 const Root = () => {
   const auth = useAuth();
-  return auth.user ? <AuthenticatedApp /> : <UnauthenticatedApp />;
+  const { error } = useError();
+  return (
+    <>
+      {error ? <ErrorMessage message={error} /> : null}
+      {auth.user ? <AuthenticatedApp /> : <UnauthenticatedApp />}
+    </>
+  );
 };
 
 export default Root;

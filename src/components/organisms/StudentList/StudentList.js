@@ -17,13 +17,15 @@ const StudentList = ({ handleOpenStudentDetails }) => {
   }, [groupId, getStudentsByGroup]);
   return (
     <List>
-      {students.map((studentData) => (
-        <StudentListItem
-          key={studentData.id}
-          userData={studentData}
-          onClick={() => handleOpenStudentDetails(studentData.id)}
-        />
-      ))}
+      {students
+        ? students.map((studentData) => (
+            <StudentListItem
+              key={studentData.id}
+              userData={studentData}
+              onClick={() => handleOpenStudentDetails(studentData.id)}
+            />
+          ))
+        : 'No students found.'}
     </List>
   );
 };
