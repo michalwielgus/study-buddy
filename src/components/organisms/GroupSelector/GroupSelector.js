@@ -16,24 +16,30 @@ const GroupSelector = () => {
   }, [getGroups]);
   return (
     <>
-      <Button isAbsolute onClick={() => setIsVisible(!isVisible)}>
-        Change group &gt;
-      </Button>
-      <StyledGroupList
-        isVisible={isVisible}
-        onClick={() => setIsVisible(!isVisible)}
-      >
-        <StyledLink to="/group">All students</StyledLink>
-        {groups.map((group) => (
-          <StyledLink
-            key={group.id}
-            to={`/group/${group.id}`}
+      {groups ? (
+        <>
+          <Button isAbsolute onClick={() => setIsVisible(!isVisible)}>
+            Change group &gt;
+          </Button>
+          <StyledGroupList
+            isVisible={isVisible}
             onClick={() => setIsVisible(!isVisible)}
           >
-            Group {group.id}
-          </StyledLink>
-        ))}
-      </StyledGroupList>
+            <StyledLink to="/group">All students</StyledLink>
+            {groups.map((group) => (
+              <StyledLink
+                key={group.id}
+                to={`/group/${group.id}`}
+                onClick={() => setIsVisible(!isVisible)}
+              >
+                Group {group.id}
+              </StyledLink>
+            ))}
+          </StyledGroupList>
+        </>
+      ) : (
+        'No groups found'
+      )}
     </>
   );
 };

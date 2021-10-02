@@ -14,34 +14,40 @@ import {
 
 const StudentDetails = ({ student }) => {
   return (
-    <div>
-      <Summary>
-        <Average average={student.average} isBig={true}>
-          {student.average}
-        </Average>
-        <Title as="h2">{student.name}</Title>
-        <div>
-          <ItemMeta style={{ fontWeight: 'bold' }}>
-            Group {student.group}
-          </ItemMeta>
-          <ItemMeta>attendance: {student.attendance}%</ItemMeta>
-        </div>
-      </Summary>
-      <Details>
-        <SectionTitle>Course:</SectionTitle>
-        <CourseName>{student.course}</CourseName>
+    <>
+      {student ? (
+        <>
+          <Summary>
+            <Average average={student.average} isBig={true}>
+              {student.average}
+            </Average>
+            <Title as="h2">{student.name}</Title>
+            <div>
+              <ItemMeta style={{ fontWeight: 'bold' }}>
+                Group {student.group}
+              </ItemMeta>
+              <ItemMeta>attendance: {student.attendance}%</ItemMeta>
+            </div>
+          </Summary>
+          <Details>
+            <SectionTitle>Course:</SectionTitle>
+            <CourseName>{student.course}</CourseName>
 
-        <SectionTitle>Average grades:</SectionTitle>
-        <GradeList>
-          {student.subjects.map((subject) => (
-            <GradeItem key={subject.name}>
-              <Subject>{subject.name}</Subject>
-              <Average average={subject.grade}>{subject.grade}</Average>
-            </GradeItem>
-          ))}
-        </GradeList>
-      </Details>
-    </div>
+            <SectionTitle>Average grades:</SectionTitle>
+            <GradeList>
+              {student.subjects.map((subject) => (
+                <GradeItem key={subject.name}>
+                  <Subject>{subject.name}</Subject>
+                  <Average average={subject.grade}>{subject.grade}</Average>
+                </GradeItem>
+              ))}
+            </GradeList>
+          </Details>
+        </>
+      ) : (
+        'Student not found.'
+      )}
+    </>
   );
 };
 

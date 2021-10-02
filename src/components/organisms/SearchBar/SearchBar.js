@@ -17,9 +17,12 @@ const SearchBar = () => {
   const { findStudents } = useStudents();
 
   const getMatchingStudents = debounce(async ({ inputValue }) => {
-    const { students } = await findStudents(inputValue);
-    console.log(students);
-    setMatchingStudents(students);
+    try {
+      const { students } = await findStudents(inputValue);
+      setMatchingStudents(students);
+    } catch (e) {
+      console.log(e);
+    }
   }, 500);
 
   const {
@@ -52,6 +55,7 @@ const SearchBar = () => {
         isOpen={isOpen && matchingStudents.length > 0}
       >
         {isOpen &&
+          matchingStudents &&
           matchingStudents.map((student, index) => (
             <SearchResultsItem
               key={student.id}
