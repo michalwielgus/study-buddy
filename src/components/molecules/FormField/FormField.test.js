@@ -1,9 +1,9 @@
 import React from 'react';
 import FormField from './FormField';
-import renderWithThemeProvider from 'helpers/renderWithProviders';
+import { render } from 'testUtils';
 
-describe('Input With Button', () => {
+describe('Input', () => {
   it('should render the component', () => {
-    renderWithThemeProvider(<FormField label="name" name="name" id="name" />);
+    render(<FormField label="name" name="name" id="name" />);
   });
 });

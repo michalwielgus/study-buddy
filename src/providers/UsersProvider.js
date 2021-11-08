@@ -21,7 +21,7 @@ const UsersProvider = ({ children }) => {
           'There is a problem, with connection to our service. Please report a problem.'
         )
       );
-  }, []);
+  }, [dispatchError]);
 
   const handleAddUser = (formValues) => {
     const newUser = {
