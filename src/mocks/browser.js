@@ -6,19 +6,19 @@ import { teachers } from 'mocks/data/teachers';
 
 const worker = setupWorker(...handlers);
 
-const createStudents = () => {
+export const createStudents = () => {
   for (let i = 0; i < 125; i++) {
     db.student.create();
   }
 };
 
-const createGroups = () => {
+export const createGroups = () => {
   for (let group of groups) {
     db.group.create({ id: group });
   }
 };
 
-const createTeachers = () => {
+export const createTeachers = () => {
   for (let teacher of teachers) {
     db.teacher.create({
       id: teacher.id,

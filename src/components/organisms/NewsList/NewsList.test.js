@@ -1,6 +1,6 @@
 import React from 'react';
 import { screen } from '@testing-library/react';
-import renderWithProviders from 'helpers/renderWithProviders';
+import { render } from 'testUtils';
 import MockAdapter from 'axios-mock-adapter';
 import axios from 'axios';
 import NewsList, { query } from './NewsList';
@@ -13,7 +13,7 @@ describe('News List', () => {
   });
   it('should display error when fetching failed', async () => {
     mock.onPost('https://graphql.datocms.com/', { query }).reply(500);
-    renderWithProviders(<NewsList />);
+    render(<NewsList />);
     await screen.findByText(/Sorry/);
   });
 
@@ -31,7 +31,7 @@ describe('News List', () => {
         ],
       },
     });
-    renderWithProviders(<NewsList />);
+    render(<NewsList />);
     await screen.findAllByText(/Test/);
   });
 });
