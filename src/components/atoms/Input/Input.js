@@ -8,8 +8,12 @@ const Input = styled.input`
   border-radius: 25px;
   width: ${({ type }) =>
     type === 'checkbox' || type === 'radio' ? 'auto' : '100%'};
-  height: ${({ type }) =>
-    type === 'checkbox' || type === 'radio' ? 'auto' : '35px'};
+  height: ${({ type, isTextarea }) =>
+    type === 'checkbox' || type === 'radio'
+      ? 'auto'
+      : isTextarea
+      ? '250px'
+      : '35px'};
 
   &::placeholder {
     color: ${({ theme }) => theme.colors.placeholderGrey};

@@ -9,4 +9,10 @@ export const Wrapper = styled.div`
     margin-bottom: 9px;
     margin-top: 25px;
   }
+
+  &:first-child {
+    label {
+      margin-top: 0;
+    }
+  }
 `;
