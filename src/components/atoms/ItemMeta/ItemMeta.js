@@ -6,6 +6,7 @@ export const ItemMeta = styled.p`
   ${({ isError }) =>
     isError
       ? `color: ${({ theme }) =>
-          theme.colors.error}; text-align: center; margin-top: 10px;`
+          theme.colors
+            .error}; text-align: center; margin-top: 10px; font-weight: bold;`
       : ''};
 `;

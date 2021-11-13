@@ -12,6 +12,7 @@ import { ItemMeta } from 'components/atoms/ItemMeta/ItemMeta';
 import { useAuth } from 'hooks/useAuth';
 import { useError } from 'hooks/useError';
 import ErrorMessage from 'components/molecules/ErrorMessage/ErrorMessage';
+import Notes from './Notes/Notes';
 
 const AuthenticatedApp = () => (
   <MainTemplate>
@@ -22,6 +23,9 @@ const AuthenticatedApp = () => (
         </Route>
         <Route path="/add-user">
           <AddUser />
+        </Route>
+        <Route path="/notes">
+          <Notes />
         </Route>
         <Route path="/group/:groupId?">
           <Dashboard />
