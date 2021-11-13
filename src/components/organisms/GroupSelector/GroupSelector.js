@@ -1,22 +1,18 @@
-import React, { useState, useEffect } from 'react';
-import { useStudents } from 'hooks/useStudents';
+import React, { useState } from 'react';
 import Button from 'components/atoms/Button/Button';
 import { StyledGroupList, StyledLink } from './GroupSelector.styles';
+import { useGetGroupsQuery } from 'store';
 
 const GroupSelector = () => {
-  const [groups, setGroups] = useState([]);
   const [isVisible, setIsVisible] = useState(false);
-  const { getGroups } = useStudents();
+  const { data, isLoading } = useGetGroupsQuery();
 
-  useEffect(() => {
-    (async () => {
-      const groups = await getGroups();
-      setGroups(groups);
-    })();
-  }, [getGroups]);
+  if (isLoading) {
+    return <h3>Loading..</h3>;
+  }
   return (
     <>
-      {groups ? (
+      {data.groups ? (
         <>
           <Button isAbsolute onClick={() => setIsVisible(!isVisible)}>
             Change group &gt;
@@ -26,7 +22,7 @@ const GroupSelector = () => {
             onClick={() => setIsVisible(!isVisible)}
           >
             <StyledLink to="/group">All students</StyledLink>
-            {groups.map((group) => (
+            {data.groups.map((group) => (
               <StyledLink
                 key={group.id}
                 to={`/group/${group.id}`}
