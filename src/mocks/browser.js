@@ -29,9 +29,16 @@ export const createTeachers = () => {
   }
 };
 
+export const createNotes = () => {
+  for (let i = 0; i < 3; i++) {
+    db.note.create();
+  }
+};
+
 createStudents();
 createGroups();
 createTeachers();
+createNotes();
 
 window.mocks = {
   createStudents,
@@ -40,6 +47,8 @@ window.mocks = {
   getGroups: () => db.group.getAll(),
   createTeachers,
   getTeachers: () => db.teacher.getAll(),
+  createNotes,
+  getNotes: () => db.note.getAll(),
 };
 
 export default worker;

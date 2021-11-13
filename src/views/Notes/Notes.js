@@ -6,15 +6,16 @@ import FormField from 'components/molecules/FormField/FormField';
 import { Wrapper, NotesWrapper } from './Notes.styles';
 import Button from 'components/atoms/Button/Button';
 import Note from 'components/molecules/Note/Note';
-import { useSelector, useDispatch } from 'react-redux';
+
 import { useForm } from 'react-hook-form';
 import { ItemMeta } from 'components/atoms/ItemMeta/ItemMeta';
-import { addNote } from 'store';
+import { useGetNotesQuery } from 'store';
+import { useAddNoteMutation } from 'store';
 
 const Notes = () => {
   const ref = useRef(null);
-  const notes = useSelector((state) => state.notes);
-  const dispatch = useDispatch();
+  const { data, isLoading } = useGetNotesQuery();
+  const [addNote] = useAddNoteMutation();
 
   const {
     register,
@@ -24,7 +25,7 @@ const Notes = () => {
   } = useForm();
 
   const handleAddNote = ({ title, content }) => {
-    dispatch(addNote({ title, content }));
+    addNote({ title, content });
     reset();
   };
 
@@ -65,16 +66,19 @@ const Notes = () => {
             </Button>
           </form>
         </ViewWrapper>
-
-        <NotesWrapper>
-          {notes.length ? (
-            notes.map(({ title, content, id }) => (
-              <Note id={id} key={id} title={title} content={content} />
-            ))
-          ) : (
-            <p>Create your first note</p>
-          )}
-        </NotesWrapper>
+        {isLoading ? (
+          <h3>Loading...</h3>
+        ) : (
+          <NotesWrapper>
+            {data.notes.length ? (
+              data.notes.map(({ title, content, id }) => (
+                <Note id={id} key={id} title={title} content={content} />
+              ))
+            ) : (
+              <p>Create your first note</p>
+            )}
+          </NotesWrapper>
+        )}
       </Wrapper>
     </>
   );
